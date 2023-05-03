@@ -1,8 +1,10 @@
 const socket = io("/");
+
 const videoGrid = document.getElementById("video-grid");
 const myVideo = document.createElement("video");
 const showChat = document.querySelector("#showChat");
 const backBtn = document.querySelector(".header__back");
+
 myVideo.muted = true;
 
 backBtn.addEventListener("click", () => {
@@ -19,7 +21,7 @@ showChat.addEventListener("click", () => {
   document.querySelector(".header__back").style.display = "block";
 });
 
-const user = prompt("Enter your name");
+const user = prompt("Enter your Name");
 
 var peer = new Peer({
   host: "10.160.113.133",
@@ -53,6 +55,7 @@ var peer = new Peer({
 });
 
 let myVideoStream;
+
 navigator.mediaDevices
   .getUserMedia({
     audio: true,
@@ -60,12 +63,16 @@ navigator.mediaDevices
   })
   .then((stream) => {
     myVideoStream = stream;
+
     addVideoStream(myVideo, stream);
 
     peer.on("call", (call) => {
-      console.log("someone call me");
+      console.log("Someone Called Me");
+
       call.answer(stream);
+
       const video = document.createElement("video");
+
       call.on("stream", (userVideoStream) => {
         addVideoStream(video, userVideoStream);
       });
@@ -78,20 +85,23 @@ navigator.mediaDevices
 
 const connectToNewUser = (userId, stream) => {
   console.log("I call someone" + userId);
+
   const call = peer.call(userId, stream);
   const video = document.createElement("video");
+
   call.on("stream", (userVideoStream) => {
     addVideoStream(video, userVideoStream);
   });
 };
 
 peer.on("open", (id) => {
-  console.log("my id is" + id);
+  console.log("My ID is " + id);
   socket.emit("join-room", ROOM_ID, id, user);
 });
 
 const addVideoStream = (video, stream) => {
   video.srcObject = stream;
+
   video.addEventListener("loadedmetadata", () => {
     video.play();
     videoGrid.append(video);
@@ -119,8 +129,10 @@ text.addEventListener("keydown", (e) => {
 const inviteButton = document.querySelector("#inviteButton");
 const muteButton = document.querySelector("#muteButton");
 const stopVideo = document.querySelector("#stopVideo");
+
 muteButton.addEventListener("click", () => {
   const enabled = myVideoStream.getAudioTracks()[0].enabled;
+
   if (enabled) {
     myVideoStream.getAudioTracks()[0].enabled = false;
     html = `<i class="fas fa-microphone-slash"></i>`;
@@ -136,6 +148,7 @@ muteButton.addEventListener("click", () => {
 
 stopVideo.addEventListener("click", () => {
   const enabled = myVideoStream.getVideoTracks()[0].enabled;
+
   if (enabled) {
     myVideoStream.getVideoTracks()[0].enabled = false;
     html = `<i class="fas fa-video-slash"></i>`;
