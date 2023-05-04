@@ -23,7 +23,7 @@
   background-color: var(--main-darklg);
 }
 
-.logo > h3 {
+.logo>h3 {
   color: var(--main-light);
 }
 
@@ -113,7 +113,7 @@ video {
   justify-content: center;
 }
 
-.main__message_container > input {
+.main__message_container>input {
   height: 50px;
   flex: 1;
   font-size: 1rem;
@@ -133,19 +133,19 @@ video {
   flex-direction: column;
 }
 
-.message > b {
+.message>b {
   color: #eeeeee;
   display: flex;
   align-items: center;
   text-transform: capitalize;
 }
 
-.message > b > i {
+.message>b>i {
   margin-right: 0.7rem;
   font-size: 1.5rem;
 }
 
-.message > span {
+.message>span {
   background-color: #eeeeee;
   margin: 1rem 0;
   padding: 1rem;
@@ -175,6 +175,7 @@ video {
   .main__right {
     display: none;
   }
+
   .main__left {
     width: 100%;
     flex: 1;
